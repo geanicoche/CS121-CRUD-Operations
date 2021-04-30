@@ -1,0 +1,153 @@
+{% extends 'library/main.html' %}
+
+{% block content %}
+
+<div class="container">
+
+    <h1>Library Application</h1>
+    <h6>Exercise 4: CRUD Operations</h6>
+    <h7>by Glenn Angelo E. Anicoche</h7>
+    <br><br>
+
+    <div class="authors">
+        <strong>Total No. of Authors</strong> {{authors|length}}
+        <br>
+        <a href="{% url 'addAuthor' %}" class="btn btn-outline-dark btn-sm">
+            <i class="fas fa-plus"></i>
+            Add Author
+        </a>
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">First Name</th>
+                    <th scope="col">Last Name</th>
+                    <th scope="col">Country of Origin</th>
+                    <th colspan="2"></th>
+                </tr>
+            </thead>
+            <tbody>
+
+                {% for author in authors %}
+                <tr>
+                    <td>{{author.first_name}}</td>
+                    <td>{{author.last_name}}</td>
+                    <td>{{author.origin}}</td>
+                    <td>
+                        <a href="{% url 'updateAuthor' author.id %}" class="btn btn-outline-dark btn-sm" >
+                            <i class="fas fa-edit"></i>
+                            Update Author
+                        </a>
+                    </td>
+                    <td>
+                        <button class="btn btn-outline-dark btn-sm" data-bs-toggle="modal" data-bs-target="#delete_author_{{author.id}}">
+                            <i class="fas fa-trash"></i>
+                            Delete Author
+                        </button>
+                        <!-- Delete Modal -->
+                        <div class="modal fade" id="delete_author_{{author.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Delete Author Confirmation</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Are you sure you want to delete <u>{{author.first_name}} {{author.last_name}}</u>?
+                                    </div>
+                                    <div class="modal-footer">
+                                        <a href="{% url 'deleteAuthor' author.id %}" class="btn btn-outline-success">
+                                            <i class="fas fa-trash"></i> Delete
+                                        </a>
+                                        <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">
+                                            <i class="fas fa-ban"></i> Cancel
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>    
+                    </td>
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+        </table>
+    </div>
+    
+    <br><br>
+
+    <div class="books">
+        <strong>Total No. of Books</strong> {{books|length}}
+        <br>
+        <a href="{% url 'addBook' %}" class="btn btn-outline-dark btn-sm">
+            <i class="fas fa-plus"></i>
+            Add Book
+        </a>
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">Title</th>
+                    <th scope="col">Author</th>
+                    <th scope="col">Category</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">No. of pages</th>
+                    <th scope="col">Language</th>
+                    <th colspan="2"></th>
+                </tr>
+            </thead>
+            <tbody>
+    
+                {% for book in books %}
+                <tr>
+                    <td>{{book.title}}</td>
+                    <td>{{book.author}}</td>
+                    <td>{{book.category}}</td>
+                    <td>{{book.price}}</td>
+                    <td>{{book.pages}}</td>
+                    <td>{{book.language}}</td>
+                    <td>
+                        <a href="{% url 'updateBook' book.id %}" class="btn btn-outline-dark btn-sm" >
+                            <i class="fas fa-edit"></i>
+                            Update Book
+                        </a>
+                    </td>
+                    <td>
+                        <button class="btn btn-outline-dark btn-sm" data-bs-toggle="modal" data-bs-target="#delete_book_{{book.id}}">
+                            <i class="fas fa-trash"></i>
+                            Delete Book
+                        </button>
+                        <!-- Delete Modal -->
+                        <div class="modal fade" id="delete_book_{{book.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Delete Book Confirmation</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Are you sure you want to delete <u>{{book.title}}</u>?
+                                    </div>
+                                    <div class="modal-footer">
+                                        <a href="{% url 'deleteBook' book.id %}" class="btn btn-outline-success">
+                                            <i class="fas fa-trash"></i> Delete
+                                        </a>
+                                        <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">
+                                            <i class="fas fa-ban"></i> Cancel
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>    
+                    </td>
+                    </td>
+                </tr>
+    
+                {% endfor %}
+    
+            </tbody>
+        </table>
+    </div>
+    
+</div>
+
+{% endblock content %}
